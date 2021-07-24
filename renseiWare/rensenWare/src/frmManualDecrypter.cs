@@ -9,8 +9,8 @@ namespace rensenWare
 {
 	public partial class frmManualDecrypter : Form
 	{
-        private byte[] Key;
-        private byte[] IV;
+		private byte[] Key;
+		private byte[] IV;
 
 		public frmManualDecrypter()
 		{
@@ -68,7 +68,7 @@ namespace rensenWare
 
 							Program.Crypt(fileName, true); // Decrypt the file
 							
-                            this.ProgressDecrypt.Invoke(new MethodInvoker(delegate()
+							this.ProgressDecrypt.Invoke(new MethodInvoker(delegate()
 							{
 								ProgressBar progressDecrypt = this.ProgressDecrypt;
 								int value = progressDecrypt.Value;
